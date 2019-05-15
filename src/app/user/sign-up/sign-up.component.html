@@ -1,0 +1,30 @@
+<form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+  <input type="text" #fullName="ngModel" [(ngModel)]="userService.selectedUser.fullName" name="fullName" placeholder="fullName"
+  required >
+  <div *ngIf="signUpForm.submitted && !fullName.valid">
+    <label> this field is required</label>
+  </div>
+  <input type="text" #email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="email"
+  required [pattern]="emailRegex">
+  <div *ngIf="signUpForm.submitted && email.errors">
+    <label *ngIf="email.errors.required">this field is required</label>
+    <label *ngIf="email.errors.pattern">invalid email address</label>
+  </div>
+  <input type="password" #password="ngModel" [(ngModel)]="userService.selectedUser.password" name="password" placeholder="password"
+  minlength="4" required>
+  <div *ngIf="signUpForm.submitted && password.errors">
+    <label *ngIf="password.errors.required"> this field is required</label>
+    <label *ngIf="password.errors.minlength">enter atleast four characters</label>
+  </div>
+  <input type="submit" value="sign Up">
+</form>
+
+<!--success message-->
+<div *ngIf="showSuccessMessage">
+  saved successfully
+</div>
+
+<!--error messages -->
+<div *ngIf='serverErrorMessages'>
+  {{serverErrorMessages}}
+</div>

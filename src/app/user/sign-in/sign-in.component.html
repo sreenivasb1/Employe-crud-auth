@@ -1,0 +1,19 @@
+<form #signInForm ="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+  <input type="text" name="email" #email="ngModel" [(ngModel)]="model.email"placeholder="email" [pattern]="emailRegex" required>
+  <div *ngIf="signInForm.submitted && email.errors?.pattern">
+    <label>Invalid email address</label>
+</div>
+
+<input type="text" name="password" #password="ngModel" [(ngModel)]="model.password"placeholder="password" minlength="4" required>
+<div *ngIf="signInForm.submitted && password.errors?.minlength">
+  <label>minimum 4 characters</label>
+  </div>
+
+  <input type="submit" value="sign In">
+</form>
+
+<!--error messages-->
+<div *ngIf="serverErrorMessages">
+  {{serverErrorMessages}}
+
+</div>
